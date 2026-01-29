@@ -329,3 +329,157 @@ const drawer = new DrawerMenu({
 - [ ] 動作確認：入力フィールドフォーカス時にキー無効
 - [ ] 動作確認：メニューがスクロール追従
 - [ ] 動作確認：ビューポート高さを超えた場合のメニュースクロール
+
+---
+
+# デバッグメニュー（Debug Menu）
+
+既存のLPやサイトにコピペで追加できる、独立したフローティングメニューです。
+
+## 特徴
+
+- **既存サイトに影響を与えない**: すべてのクラスに `.debug-menu` プレフィックスを使用
+- **フローティング表示**: 右下にトグルボタン、左下にメニューカード
+- **コピペで移植可能**: HTML・CSS・JSをそのまま追加するだけ
+- **アクセシビリティ対応**: ARIA属性、キーボード操作対応
+
+## ファイル構成
+
+```
+debug-menu/
+├── index.html          # デモページ
+├── css/
+│   └── debug-menu.css  # スタイル定義
+└── js/
+    └── debug-menu.js   # メニュー制御ロジック
+```
+
+## 使い方
+
+### Step 1: CSSを読み込む
+
+`<head>` 内に追加:
+
+```html
+<link rel="stylesheet" href="css/debug-menu.css">
+```
+
+### Step 2: HTMLを追加
+
+`</body>` の直前に追加:
+
+```html
+<div class="debug-menu-container">
+  <!-- トグルボタン（右下） -->
+  <button
+    class="debug-menu-toggle"
+    id="debug-menu-toggle"
+    aria-expanded="false"
+    aria-controls="debug-menu-card"
+    aria-label="メニューを開く"
+  >
+    <span class="debug-menu-toggle-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+  </button>
+
+  <!-- メニューカード（左下） -->
+  <nav
+    class="debug-menu-card"
+    id="debug-menu-card"
+    aria-label="デバッグメニュー"
+  >
+    <div class="debug-menu-header">Menu</div>
+    <ul class="debug-menu-list">
+      <li><a href="#section1">セクション1</a></li>
+      <li><a href="#section2">セクション2</a></li>
+      <li><a href="#section3">セクション3</a></li>
+    </ul>
+  </nav>
+</div>
+```
+
+### Step 3: JavaScriptを読み込む
+
+```html
+<script src="js/debug-menu.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    new DebugMenu();
+  });
+</script>
+```
+
+---
+
+## JavaScript設定オプション
+
+```javascript
+new DebugMenu({
+  toggleId: 'debug-menu-toggle',    // トグルボタンのID
+  menuId: 'debug-menu-card',        // メニューカードのID
+  trigger: {
+    button: true,                   // ボタンクリックで開閉
+    keyboard: true,                 // キーボードで開閉
+    key: 'Escape',                  // トリガーキー（デフォルト: Escape）
+  },
+  closeOnClickOutside: true,        // 外側クリックで閉じる
+});
+```
+
+### カスタマイズ例
+
+#### キーボード操作を無効にする
+
+```javascript
+new DebugMenu({
+  trigger: {
+    keyboard: false,
+  },
+});
+```
+
+#### 別のキーでトグル
+
+```javascript
+new DebugMenu({
+  trigger: {
+    key: 'd',  // 'd' キーで開閉
+  },
+});
+```
+
+#### 外側クリックで閉じない
+
+```javascript
+new DebugMenu({
+  closeOnClickOutside: false,
+});
+```
+
+---
+
+## CSS変数（カスタマイズ可能）
+
+直接CSSを編集してカスタマイズ可能な値:
+
+| プロパティ | デフォルト値 | 説明 |
+|-----------|-------------|------|
+| `z-index` (toggle) | 9999 | トグルボタンの重なり順 |
+| `z-index` (card) | 9998 | メニューカードの重なり順 |
+| `min-width` (card) | 200px | カードの最小幅 |
+| `max-width` (card) | 300px | カードの最大幅 |
+
+---
+
+## 実装チェックリスト（Debug Menu）
+
+- [ ] CSSファイルを読み込み
+- [ ] HTMLマークアップを追加
+- [ ] JSファイルを読み込み・初期化
+- [ ] 動作確認：ボタンクリックで開閉
+- [ ] 動作確認：Escキーで開閉
+- [ ] 動作確認：外側クリックで閉じる
+- [ ] 動作確認：ハンバーガーアイコン ↔ ×アイコンの切り替え
