@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>デバッグ用ドロワーメニュー</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <!-- ドロワーメニュー -->
+      <aside class="drawer" id="drawer" aria-hidden="true">
+        <nav class="drawer__nav">
+          <ul>
+            <li><a href="#section1">セクション1</a></li>
+            <li><a href="#section2">セクション2</a></li>
+            <li><a href="#section3">セクション3</a></li>
+          </ul>
+        </nav>
+      </aside>
+      <!-- ドロワーメニュー -->
+
+      <!-- メインコンテンツ -->
+      <main class="content">
+        <button
+          class="drawer-toggle"
+          id="drawer-toggle"
+          aria-expanded="false"
+          aria-controls="drawer"
+        >
+          メニュー
+        </button>
+
+        <section id="section2">
+          <h2>セクション1</h2>
+          <p>コンテンツ...</p>
+        </section>
+        <section id="section2">
+          <h2>セクション2</h2>
+          <p>コンテンツ...</p>
+        </section>
+        <section id="section3">
+          <h2>セクション3</h2>
+          <p>コンテンツ...</p>
+        </section>
+      </main>
+      <!-- メインコンテンツ -->
+    </div>
+
+    <script src="js/drawer.js"></script>
+    <script>
+      // 初期化
+      document.addEventListener('DOMContentLoaded', () => {
+        // 使用例：ボタンのみ
+        // const drawer = new DrawerMenu({ trigger: { button: true, keyboard: false } });
+
+        // 使用例：キーボードのみ（Escキー）
+        // const drawer = new DrawerMenu({ trigger: { button: false, keyboard: true, key: 'Escape' } });
+
+        // デフォルト：両方対応
+        const drawer = new DrawerMenu({
+          trigger: {
+            button: true,
+            keyboard: true,
+            key: 'Escape',
+          },
+        })
+      })
+    </script>
+  </body>
+</html>
