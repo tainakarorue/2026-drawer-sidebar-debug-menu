@@ -483,3 +483,167 @@ new DebugMenu({
 - [ ] 動作確認：Escキーで開閉
 - [ ] 動作確認：外側クリックで閉じる
 - [ ] 動作確認：ハンバーガーアイコン ↔ ×アイコンの切り替え
+
+---
+
+# デバッグメニュー Full JS版（Debug Menu Full JS）
+
+メニューアイテムをJavaScriptで動的に生成するバージョンです。HTMLにはメニュー要素を書く必要がなく、JSのインスタンス設定だけでメニューを構築できます。
+
+## 特徴
+
+- **HTML不要**: メニューのマークアップはJSで自動生成
+- **アイコン対応**: 各メニューアイテムにアイコン画像を設定可能（オプション）
+- **柔軟な設定**: label、href、icon、target、separatorをアイテムごとに設定
+- **既存サイトに影響を与えない**: `.debug-menu` プレフィックスで名前空間を分離
+
+## ファイル構成
+
+```
+debug-menu-full-js/
+├── index.html          # デモページ
+├── css/
+│   └── debug-menu.css  # スタイル定義
+└── js/
+    └── debug-menu.js   # メニュー制御・生成ロジック
+```
+
+## 使い方
+
+### Step 1: CSSを読み込む
+
+`<head>` 内に追加:
+
+```html
+<link rel="stylesheet" href="css/debug-menu.css">
+```
+
+### Step 2: JavaScriptを読み込み・設定
+
+`</body>` の直前に追加:
+
+```html
+<script src="js/debug-menu.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new DebugMenu({
+      menuTitle: 'Menu',
+      items: [
+        {
+          label: 'セクション1',
+          href: '#section1',
+          icon: 'path/to/icon.svg',  // オプション
+        },
+        {
+          label: 'セクション2',
+          href: '#section2',
+          // アイコンなし
+        },
+        {
+          label: 'セクション3',
+          href: '#section3',
+          separator: true,  // この後に区切り線
+        },
+        {
+          label: '外部リンク',
+          href: 'https://example.com',
+          target: '_blank',
+          icon: 'path/to/external-icon.svg',
+        },
+      ],
+    });
+  });
+</script>
+```
+
+---
+
+## メニューアイテムのプロパティ
+
+| プロパティ | 必須 | 説明 |
+|-----------|------|------|
+| `label` | ○ | 表示するラベルテキスト |
+| `href` | ○ | リンク先のURL（#section1、https://...など） |
+| `icon` | - | アイコン画像のsrc（未設定の場合はアイコンなし） |
+| `target` | - | リンクのtarget属性（`_blank`など） |
+| `separator` | - | `true`にするとこの項目の後に区切り線を表示 |
+
+---
+
+## JavaScript設定オプション
+
+```javascript
+new DebugMenu({
+  containerId: null,              // コンテナを挿入する親要素のセレクタ（nullでbody末尾）
+  menuTitle: 'Menu',              // メニューのタイトル
+  items: [],                      // メニューアイテムの配列
+  trigger: {
+    button: true,                 // ボタンクリックで開閉
+    keyboard: true,               // キーボードで開閉
+    key: 'Escape',                // トリガーキー
+  },
+  closeOnClickOutside: true,      // 外側クリックで閉じる
+});
+```
+
+---
+
+## アイコンのレイアウト
+
+アイコンが設定されている場合:
+- Flexboxで左側にアイコン、右側にラベルを配置
+- アイコンサイズ: 20x20px
+- アイコンとラベルの間隔: 10px
+
+アイコンが設定されていない場合:
+- 通常のブロック要素としてラベルのみ表示
+
+```
+┌─────────────────────┐
+│ [icon] ラベル       │  ← アイコンあり
+├─────────────────────┤
+│ ラベルのみ          │  ← アイコンなし
+└─────────────────────┘
+```
+
+---
+
+## APIメソッド
+
+インスタンスから以下のメソッドを呼び出せます:
+
+```javascript
+const menu = new DebugMenu({ ... });
+
+// メニューを開く
+menu.open();
+
+// メニューを閉じる
+menu.close();
+
+// メニューをトグル
+menu.toggleMenu();
+
+// アイテムを動的に追加（再描画される）
+menu.addItem({ label: '新しい項目', href: '#new' });
+
+// メニューを再描画
+menu.refresh();
+
+// メニューを破棄
+menu.destroy();
+```
+
+---
+
+## 実装チェックリスト（Debug Menu Full JS）
+
+- [ ] CSSファイルを読み込み
+- [ ] JSファイルを読み込み
+- [ ] メニューアイテムを設定して初期化
+- [ ] 動作確認：ボタンクリックで開閉
+- [ ] 動作確認：Escキーで開閉
+- [ ] 動作確認：アイコン付きアイテムの表示
+- [ ] 動作確認：アイコンなしアイテムの表示
+- [ ] 動作確認：セパレーターの表示
+- [ ] 動作確認：外部リンク（target="_blank"）

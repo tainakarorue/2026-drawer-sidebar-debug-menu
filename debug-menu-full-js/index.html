@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Debug Menu デモ（Full JS）</title>
+    <style>
+      /* デモ用のページスタイル（実際のLPを想定） */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: sans-serif;
+        line-height: 1.6;
+      }
+      .demo-section {
+        min-height: 100vh;
+        padding: 60px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .demo-section:nth-child(odd) {
+        background: #f9f9f9;
+      }
+      .demo-section:nth-child(even) {
+        background: #fff;
+      }
+      .demo-section h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+      .demo-section p {
+        max-width: 600px;
+        text-align: center;
+        color: #666;
+      }
+    </style>
+    <!-- ========================================
+         ここから下がコピペで移植する部分
+    ========================================= -->
+    <link rel="stylesheet" href="css/debug-menu.css" />
+  </head>
+  <body>
+    <!-- デモ用コンテンツ（実際のLPを想定） -->
+    <section class="demo-section" id="section1">
+      <h2>セクション1</h2>
+      <p>
+        これはデモ用のセクションです。実際のLPではここにコンテンツが入ります。
+      </p>
+    </section>
+
+    <section class="demo-section" id="section2">
+      <h2>セクション2</h2>
+      <p>スクロールしてメニューの動作を確認してください。</p>
+    </section>
+
+    <section class="demo-section" id="section3">
+      <h2>セクション3</h2>
+      <p>メニューはコンテンツに重なって表示されます。</p>
+    </section>
+
+    <section class="demo-section" id="section4">
+      <h2>セクション4</h2>
+      <p>右下のボタンまたはEscキーでメニューを開閉できます。</p>
+    </section>
+
+    <!-- ========================================
+         Debug Menu - コピペで移植する部分
+         HTMLにはコンテナ不要、JSで全て生成
+    ========================================= -->
+    <script src="js/debug-menu.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        new DebugMenu({
+          menuTitle: 'Menu',
+          items: [
+            {
+              label: 'セクション1',
+              href: '#section1',
+              icon: 'https://api.iconify.design/mdi:home.svg',
+            },
+            {
+              label: 'セクション2',
+              href: '#section2',
+              icon: 'https://api.iconify.design/mdi:information.svg',
+            },
+            {
+              label: 'セクション3',
+              href: '#section3',
+              // アイコンなし
+            },
+            {
+              label: 'セクション4',
+              href: '#section4',
+              separator: true, // この後に区切り線
+            },
+            {
+              label: '外部リンク',
+              href: 'https://example.com',
+              target: '_blank',
+              icon: 'https://api.iconify.design/mdi:open-in-new.svg',
+            },
+          ],
+        })
+      })
+    </script>
+    <!-- ========================================
+         Debug Menu ここまで
+    ========================================= -->
+  </body>
+</html>
