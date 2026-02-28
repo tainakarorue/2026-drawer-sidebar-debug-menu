@@ -1,0 +1,58 @@
+/**
+ * ScrollNav Base Styles
+ *
+ * このファイルは最小限の機能的スタイルのみを提供します。
+ * 位置やデザインはプロジェクトのCSSで自由にカスタマイズしてください。
+ *
+ * 例:
+ * .scroll-nav {
+ *   position: fixed;
+ *   top: 1rem;
+ *   left: 1rem;
+ *   z-index: 50;
+ *   display: flex;
+ *   flex-direction: column;
+ *   gap: 0.5rem;
+ * }
+ *
+ * .scroll-nav__item {
+ *   padding: 0.5rem 1rem;
+ *   background-color: #e5e7eb;
+ *   border-radius: 0.25rem;
+ * }
+ *
+ * .scroll-nav__item.is-active {
+ *   background-color: #000;
+ *   color: #fff;
+ * }
+ */
+
+/* Lenis 用 html/body 設定 */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ナビゲーション - 最小限のベーススタイル */
+.scroll-nav__item {
+  border: none;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+}
